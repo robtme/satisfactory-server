@@ -34,6 +34,3 @@ services:
       - '80:80/tcp'
     volumes:
       - ./certs:/etc/letsencrypt
-    environment:
-      - CERTBOT_MAIL=certbot@domain.tld
-      - DOMAIN=satisfactory.domain.tld

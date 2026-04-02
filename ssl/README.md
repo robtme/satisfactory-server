@@ -4,6 +4,7 @@ The instructions below will help you to deploy a signed SSL certificate for your
 
 ## Docker Compose
 
+`docker-compose.yml`
 ```yaml
 services:
   satisfactory-server:
@@ -41,13 +42,16 @@ services:
       - '80:80/tcp'
     volumes:
       - ./certs:/etc/letsencrypt
-    environment:
-      - CERTBOT_MAIL=certbot@domain.tld
-      - DOMAIN=satisfactory.domain.tld
+```
+
+`.env`
+```
+CERTBOT_MAIL=certbot@domain.tld
+DOMAIN=satisfactory.domain.tld
 ```
 
 The `docker-compose.yml` file above should replace the `docker-compose.yml` file you already have configured. Adjust the
-`CERTBOT_MAIL` and `DOMAIN` environment variables under the `certbot` service to be a real email address, and the domain
+`CERTBOT_MAIL` and `DOMAIN` environment variables in the `.env` file to be a real email address, and the domain
 you'd like to issue the SSL certificate for. Ensure prior to running this that you've already created the necessary DNS
 record for your domain. If you don't certbot will fail, and you'll likely hit your rate limit and need to wait a while
 to try again (check the `certbot` container's logs for further information).
