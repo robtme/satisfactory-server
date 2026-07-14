@@ -1,5 +1,6 @@
 services:
   satisfactory-server:
+    tty: true
     container_name: 'satisfactory-server'
     hostname: 'satisfactory-server'
     image: 'wolveix/satisfactory-server:latest'
