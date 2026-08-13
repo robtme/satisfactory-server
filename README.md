@@ -284,4 +284,4 @@ docker compose up -d
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wolveix/satisfactory-server&type=Date)](https://star-history.com/#wolveix/satisfactory-server&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=wolveix/satisfactory-server&type=Date)](https://star-history.dera.page/#wolveix/satisfactory-server&Date)
