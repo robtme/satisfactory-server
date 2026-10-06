@@ -27,6 +27,7 @@ jobs:
           # List of Docker images to use as base name for tags.
           images: |
             ${{ github.repository }}
+            wolveix/satisfactory-server
           # Generate Docker tags based on the following events/attributes.
           tags: |
             type=raw,value=dev

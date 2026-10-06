@@ -13,7 +13,7 @@ leaves, anyone else can pick up from where they left off.
 
 ## Setup
 
-Download the last build from [here](https://github.com/wolveix/satisfactory-server/releases/tag/1.8.2). When you 
+Download the last build from [here](https://github.com/robtme/satisfactory-server/releases/tag/1.8.2). When you 
 initially run it, it'll ask for the following information:
 
 - Server address (IP and port, e.g. `localhost:7790`)

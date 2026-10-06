@@ -2,7 +2,7 @@ services:
   satisfactory-server:
     container_name: 'satisfactory-server'
     hostname: 'satisfactory-server'
-    image: 'wolveix/satisfactory-server:latest'
+    image: 'robtme/satisfactory-server:latest'
     ports:
       - '7777:7777/tcp'
       - '7777:7777/udp'

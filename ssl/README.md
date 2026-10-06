@@ -10,7 +10,7 @@ services:
   satisfactory-server:
     container_name: 'satisfactory-server'
     hostname: 'satisfactory-server'
-    image: 'wolveix/satisfactory-server:latest'
+    image: 'robtme/satisfactory-server:latest'
     ports:
       - '7777:7777/tcp'
       - '7777:7777/udp'
@@ -67,8 +67,8 @@ the game server will not start.
 
 If you could reach the server before configuring a signed SSL cert, ensure that you're not doing either of the 
 following:
-- Using a wildcard cert: Satisfactory does not support them ([#354](https://github.com/wolveix/satisfactory-server/issues/354))
-- Connecting to a hostname not specified in your cert: Satisfactory does not support this ([#354](https://github.com/wolveix/satisfactory-server/issues/354))
+- Using a wildcard cert: Satisfactory does not support them ([#354](https://github.com/robtme/satisfactory-server/issues/354))
+- Connecting to a hostname not specified in your cert: Satisfactory does not support this ([#354](https://github.com/robtme/satisfactory-server/issues/354))
 - Using your local IP. You cannot use your local IP, as it will not be included in your certificate.
 
 ### What if port 80 is already in-use with a reverse-proxy?

@@ -47,7 +47,7 @@ func main() {
 	logger = zerolog.New(zerolog.MultiLevelWriter(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}, logFile)).With().Timestamp().Logger().Level(zerolog.InfoLevel)
 
 	logger.Info().Msg("Satisfactory Save Share Client v1.8.2")
-	logger.Info().Msg("https://github.com/wolveix/satisfactory-server/saveshare")
+	logger.Info().Msg("https://github.com/robtme/satisfactory-server/saveshare")
 	logger.Info().Msg("Initializing config...")
 
 	cfg, err := NewConfig(configDir)

@@ -30,6 +30,7 @@ jobs:
           images: |
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
+            wolveix/satisfactory-server
           # Generate Docker tags based on the following events/attributes.
           tags: |
             type=semver,pattern=v{{version}}

@@ -1,8 +1,8 @@
 # Satisfactory Server
 
-![Satisfactory](https://raw.githubusercontent.com/wolveix/satisfactory-server/main/.github/logo.png "Satisfactory logo")
+![Satisfactory](https://raw.githubusercontent.com/robtme/satisfactory-server/main/.github/logo.png "Satisfactory logo")
 
-![Release](https://img.shields.io/github/v/release/wolveix/satisfactory-server)
+![Release](https://img.shields.io/github/v/release/robtme/satisfactory-server)
 ![Docker Pulls](https://img.shields.io/docker/pulls/wolveix/satisfactory-server)
 ![Docker Stars](https://img.shields.io/docker/stars/wolveix/satisfactory-server)
 ![Image Size](https://img.shields.io/docker/image-size/wolveix/satisfactory-server)
@@ -10,9 +10,11 @@
 This is a Dockerized version of the [Satisfactory](https://store.steampowered.com/app/526870/Satisfactory/) dedicated
 server.
 
-### [Experiencing issues? Check our Troubleshooting FAQ wiki!](https://github.com/wolveix/satisfactory-server/wiki/Troubleshooting-FAQ)
+> **Note:** I've renamed my username from `wolveix` to `robtme`. Use `robtme/satisfactory-server` (or
+> `ghcr.io/robtme/satisfactory-server`). `wolveix/satisfactory-server` will continue to receive updates, so existing
+> setups won't break.
 
-### [Upgrading for Satisfactory 1.1](https://github.com/wolveix/satisfactory-server/wiki/Upgrading-for-1.1)
+### [Experiencing issues? Check our Troubleshooting FAQ wiki!](https://github.com/robtme/satisfactory-server/wiki/Troubleshooting-FAQ)
 
 ## Setup
 
@@ -53,7 +55,7 @@ docker run \
 --publish 7777:7777/tcp \
 --publish 7777:7777/udp \
 --publish 8888:8888/tcp \
-wolveix/satisfactory-server:latest
+robtme/satisfactory-server:latest
 ```
 
 <details>
@@ -67,7 +69,7 @@ wolveix/satisfactory-server:latest
 * `--volume` -> Binds the Satisfactory config folder to the folder you specified
   Allows you to easily access your savegames
 * For the environment (`--env`) variables please
-  see [here](https://github.com/wolveix/satisfactory-server#environment-variables)
+  see [here](https://github.com/robtme/satisfactory-server#environment-variables)
 * `--memory-reservation=4G` -> Reserves 4GB RAM from the host for the container's use
 * `--memory 8G` -> Restricts the container to 8GB RAM
 * `--publish` -> Specifies the ports that the container exposes<br>
@@ -83,7 +85,7 @@ services:
   satisfactory-server:
     container_name: 'satisfactory-server'
     hostname: 'satisfactory-server'
-    image: 'wolveix/satisfactory-server:latest'
+    image: 'robtme/satisfactory-server:latest'
     ports:
       - '7777:7777/tcp'
       - '7777:7777/udp'
@@ -113,7 +115,7 @@ To update the container image itself:
 #### Docker Run
 
 ```shell
-docker pull wolveix/satisfactory-server:latest
+docker pull robtme/satisfactory-server:latest
 docker stop satisfactory-server
 docker rm satisfactory-server
 docker run ...
@@ -132,15 +134,15 @@ You can use Certbot with Let's Encrypt to issue a signed SSL certificate for you
 Satisfactory will use a self-signed SSL certificate, requiring players to manually confirm them when they initially
 connect. If you're experiencing connectivity issues since issuing a certificate, check the link below for known issues.
 
-[Learn more](https://github.com/wolveix/satisfactory-server/tree/main/ssl).
+[Learn more](https://github.com/robtme/satisfactory-server/tree/main/ssl).
 
 ### Kubernetes
 
 If you are running a [Kubernetes](https://kubernetes.io) cluster, we do have
-a [service.yaml](https://github.com/wolveix/satisfactory-server/tree/main/cluster/service.yaml)
-and [statefulset.yaml](https://github.com/wolveix/satisfactory-server/tree/main/cluster/statefulset.yaml) available
-under the [cluster](https://github.com/wolveix/satisfactory-server/tree/main/cluster) directory of this repo, along with
-an example [values.yaml](https://github.com/wolveix/satisfactory-server/tree/main/cluster/values.yaml) file.
+a [service.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/service.yaml)
+and [statefulset.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/statefulset.yaml) available
+under the [cluster](https://github.com/robtme/satisfactory-server/tree/main/cluster) directory of this repo, along with
+an example [values.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/values.yaml) file.
 
 If you are using [Helm](https://helm.sh), you can find charts for this repo on
 [ArtifactHUB](https://artifacthub.io/packages/search?ts_query_web=satisfactory&sort=relevance&page=1). The
@@ -233,7 +235,7 @@ user/group IDs, you'll need to clone and rebuild the image with your specific UI
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/wolveix/satisfactory-server.git
+git clone https://github.com/robtme/satisfactory-server.git
 ```
 
 2. Create a docker-compose.yml file with your desired UID/GID as build args (note that the `PUID` and `PGID` environment
@@ -280,8 +282,8 @@ docker compose up -d
   however, if your proposed user and group aren't `1000:1000`, you'll need to rebuild the image (as outlined above).
 - The server log will show various errors; most of which can be safely ignored. As long as the container continues to
   run and your log looks similar to the example log, the server should be functioning just
-  fine: [example log](https://github.com/wolveix/satisfactory-server/blob/main/server.log)
+  fine: [example log](https://github.com/robtme/satisfactory-server/blob/main/server.log)
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wolveix/satisfactory-server&type=Date)](https://star-history.com/#wolveix/satisfactory-server&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=robtme/satisfactory-server&type=Date)](https://star-history.com/#robtme/satisfactory-server&Date)

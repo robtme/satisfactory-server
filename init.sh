@@ -2,7 +2,7 @@
 
 set -e
 
-printf "===== Satisfactory Server %s =====\\nhttps://github.com/wolveix/satisfactory-server\\n\\n" "$VERSION"
+printf "===== Satisfactory Server %s =====\\nhttps://github.com/robtme/satisfactory-server\\n\\n" "$VERSION"
 
 MSGERROR="\033[0;31mERROR:\033[0m"
 MSGWARNING="\033[0;33mWARNING:\033[0m"
