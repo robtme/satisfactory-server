@@ -10,13 +10,16 @@
 This is a Dockerized version of the [Satisfactory](https://store.steampowered.com/app/526870/Satisfactory/) dedicated
 server.
 
+### Don't want to host it yourself? Get a managed server with [Supercraft](https://supercraft.host/satisfactory-server-hosting/?fpr=robtme) (affiliate)
+
 > **Note:** I've renamed my username from `wolveix` to `robtme`. Use `robtme/satisfactory-server` (or
 > `ghcr.io/robtme/satisfactory-server`). `wolveix/satisfactory-server` will continue to receive updates, so existing
 > setups won't break.
 
-### [Experiencing issues? Check our Troubleshooting FAQ wiki!](https://github.com/robtme/satisfactory-server/wiki/Troubleshooting-FAQ)
-
 ## Setup
+
+> [!TIP]
+> Experiencing issues? Check our [Troubleshooting FAQ wiki](https://github.com/robtme/satisfactory-server/wiki/Troubleshooting-FAQ)!
 
 The server may run on less than 8GB of RAM, though 8GB - 16GB is still recommended per
 the [the official wiki](https://satisfactory.wiki.gg/wiki/Dedicated_servers#Requirements). You may need to increase the
