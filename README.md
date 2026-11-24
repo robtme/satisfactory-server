@@ -28,7 +28,7 @@ container's defined `--memory` restriction as you approach the late game (or if 
 You'll need to bind a local directory to the Docker container's `/config` directory. This directory will hold the
 following directories:
 
-- `/backups` - the server will automatically backup your saves when the container first starts
+- `/backups` - the server backs up your saves into a timestamped folder on each start, keeping the `BACKUPLIMIT` most recent (loose backup files from older versions are left as-is)
 - `/gamefiles` - this is for the game's files. They're stored outside the container to avoid needing to redownload
   8GB+ every time you want to rebuild the container
 - `/logs` - this holds Steam's logs, and contains a pointer to Satisfactory's logs (empties on startup unless
@@ -111,7 +111,8 @@ services:
 
 ### Updating
 
-The game automatically updates when the container is started or restarted (unless you set `SKIPUPDATE=true`).
+The game automatically updates when the container is started or restarted (unless you set `SKIPUPDATE=true`). If the
+update fails (e.g. Steam is down), the installed version starts instead.
 
 To update the container image itself:
 
@@ -144,36 +145,31 @@ connect. If you're experiencing connectivity issues since issuing a certificate,
 If you are running a [Kubernetes](https://kubernetes.io) cluster, we do have
 a [service.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/service.yaml)
 and [statefulset.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/statefulset.yaml) available
-under the [cluster](https://github.com/robtme/satisfactory-server/tree/main/cluster) directory of this repo, along with
-an example [values.yaml](https://github.com/robtme/satisfactory-server/tree/main/cluster/values.yaml) file.
+under the [cluster](https://github.com/robtme/satisfactory-server/tree/main/cluster) directory of this repo.
 
 If you are using [Helm](https://helm.sh), you can find charts for this repo on
-[ArtifactHUB](https://artifacthub.io/packages/search?ts_query_web=satisfactory&sort=relevance&page=1). The
-[k8s-at-home](https://github.com/k8s-at-home/charts) helm chart for Satisfactory can be installed with the below (please
-see `cluster/values.yaml` for more information).
-
-```bash
-helm repo add k8s-at-home https://k8s-at-home.com/charts/
-helm repo update
-helm install satisfactory k8s-at-home/satisfactory -f values.yaml
-```
+[ArtifactHUB](https://artifacthub.io/packages/search?ts_query_web=satisfactory&sort=relevance&page=1).
 
 ## Environment Variables
 
 | Parameter               |  Default  | Function                                                  |
 |-------------------------|:---------:|-----------------------------------------------------------|
 | `AUTOSAVENUM`           |    `5`    | number of rotating autosave files                         |
+| `BACKUPLIMIT`           |   `10`    | number of startup save backups to keep (0 disables them)  |
 | `DEBUG`                 |  `false`  | for debugging the server                                  |
 | `DISABLESEASONALEVENTS` |  `false`  | disable the FICSMAS event (you miserable bastard)         |
 | `LOG`                   |  `false`  | disable Satisfactory log pruning                          |
 | `MAXOBJECTS`            | `2162688` | set the object limit for your server                      |
 | `MAXPLAYERS`            |    `4`    | set the player limit for your server                      |
 | `MAXTICKRATE`           |   `30`    | set the maximum sim tick rate for your server             |
-| `MULTIHOME`             |   `::`    | set the server's listening interface (usually not needed) |
+| `MULTIHOME`             |   `::`    | set the server's listening interface (IPv4 only if the host has IPv6 disabled) |
 | `PGID`                  |  `1000`   | set the group ID of the user the server will run as       |
 | `PUID`                  |  `1000`   | set the user ID of the user the server will run as        |
+| `SERVERADMINPASSWORD`   |           | optional, claim a new server with this admin password (see below) |
 | `SERVERGAMEPORT`        |  `7777`   | set the game's server port                                |
 | `SERVERMESSAGINGPORT`   |  `8888`   | set the game's messaging port (internally and externally) |
+| `SERVERNAME`            | `Satisfactory Server` | set the name used when claiming the server    |
+| `SERVERPASSWORD`        |           | set the password players join with when claiming          |
 | `SERVERSTREAMING`       |  `true`   | toggle whether the game utilizes asset streaming          |
 | `SKIPUPDATE`            |  `false`  | avoid updating the game on container start/restart        |
 | `STEAMBETA`             |  `false`  | set experimental game version                             |
@@ -181,6 +177,16 @@ helm install satisfactory k8s-at-home/satisfactory -f values.yaml
 | `STEAMBETAKEY`          |           | set password for the beta game version (for testing)      |
 | `TIMEOUT`               |   `30`    | set client timeout (in seconds)                           |
 | `VMOVERRIDE`            |  `false`  | skips the CPU model check (should not ordinarily be used) |
+
+### Claiming the Server (Optional)
+
+You can claim the server from the in-game Server Manager as usual. Alternatively, set `SERVERADMINPASSWORD` (and
+optionally `SERVERNAME` and `SERVERPASSWORD`) to claim it automatically on first start, which stops anyone else from
+claiming a fresh server before you do.
+
+> [!WARNING]
+> These only apply to an unclaimed server. Once claimed, change the name and passwords in-game; changing these variables
+> does nothing. Anyone who can inspect the container can read them, so on Kubernetes load them from a Secret.
 
 ## Experimental Branch
 

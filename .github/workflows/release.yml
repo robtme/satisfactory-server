@@ -36,14 +36,19 @@ jobs:
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
             type=semver,pattern=v{{major}}
-          # Always generate latest tag on push.
+          # Prereleases must not move the latest tag.
           flavor: |
-            latest=true
+            latest=${{ !github.event.release.prerelease }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push to DockerHub & GitHub Packages
         id: docker_build
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |

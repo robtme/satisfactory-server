@@ -40,21 +40,30 @@ spec:
             - name: "messaging"
               containerPort: 8888
               protocol: TCP
+          resources:
+            requests:
+              memory: 4Gi
+            limits:
+              memory: 8Gi
           volumeMounts:
             - name: satisfactory-config
               mountPath: /config
             - name: satisfactory-data
               mountPath: /config/gamefiles
+          # Allow up to an hour for the first game download.
+          startupProbe:
+            exec:
+              command: [ "/home/steam/healthcheck.sh" ]
+            failureThreshold: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
           livenessProbe:
             exec:
-              command:
-              - "/bin/sh"
-              - "-c"
-              - "/home/steam/healthcheck.sh"
-            initialDelaySeconds: 300
+              command: [ "/home/steam/healthcheck.sh" ]
             failureThreshold: 4
             successThreshold: 1
             periodSeconds: 30
+            timeoutSeconds: 10
   volumeClaimTemplates:
     - metadata:
         name: satisfactory-config

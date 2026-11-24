@@ -1,5 +1,10 @@
 name: Linting
-on: [ pull_request ]
+on:
+  pull_request:
+    paths-ignore: [ '**.md' ]
+  push:
+    branches: [ main ]
+    paths-ignore: [ '**.md' ]
 
 jobs:
   shellcheck:
@@ -9,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Shellcheck
-        uses: azohra/shell-linter@latest
+        uses: azohra/shell-linter@v0.8.0
         with:
           severity: "error"
   dockerlint:
@@ -18,8 +23,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Validate Dockerfile
-        uses: ghe-actions/dockerfile-validator@v1
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.5.0
         with:
           dockerfile: 'Dockerfile'
-          lint: 'hadolint'
+  dockerbuild:
+    # Pushes to main already build in docker.yml.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          cache-from: type=gha
+          push: false

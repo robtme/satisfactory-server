@@ -61,6 +61,15 @@ to try again (check the `certbot` container's logs for further information).
 You can now launch the Docker Compose configuration in the same way you normally would. Do note that if Certbot fails,
 the game server will not start.
 
+### Renewal
+
+Certificates expire after 90 days and nothing renews them automatically. Certbot only renews within 30 days of expiry,
+and the server only picks up a new certificate when its container is recreated, so run this monthly (e.g. from cron):
+
+```shell
+docker compose down && docker compose up -d
+```
+
 ## Troubleshooting
 
 ### I can't reach the server with the new cert!
@@ -73,7 +82,7 @@ following:
 
 ### What if port 80 is already in-use with a reverse-proxy?
 
-Change the port for the certbot service (e.g. `7800:80/tcp`), and forward HTTP traffic from your reverse proxy through
+Change the port for the certbot service (e.g. `7780:80/tcp`), and forward HTTP traffic from your reverse proxy through
 to your `certbot` container.
 
 Here are examples on how you can do this with Caddy and NGINX

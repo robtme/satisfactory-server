@@ -1,5 +1,8 @@
 name: Docker
-on: [ push ]
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: [ '**.md' ]
 
 jobs:
   push:
@@ -20,23 +23,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          # List of Docker images to use as base name for tags.
-          images: |
-            ${{ github.repository }}
-            wolveix/satisfactory-server
-          # Generate Docker tags based on the following events/attributes.
-          tags: |
-            type=raw,value=dev
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build and push to DockerHub
+      - name: Build and push to DockerHub & GitHub Packages
         id: docker_build
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: |
+            ${{ github.repository }}:dev
             ghcr.io/${{ github.repository }}:dev
-            ${{ steps.meta.outputs.tags }}
+            wolveix/satisfactory-server:dev
